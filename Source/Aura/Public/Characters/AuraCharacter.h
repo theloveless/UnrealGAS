@@ -17,5 +17,16 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 public:
 
 	AAuraCharacter();
-	
+
+public:
+	/** These are used for replication.
+ *
+ * We cannot assign owner classes too early, only when this is fired.
+ */ 
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+
+private:
+
+	void InitAbilityActorInfo();
 };
