@@ -18,6 +18,8 @@ public:
 
 	AAuraCharacterBase();
 
+	virtual void Tick(float DeltaSeconds) override;
+	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; };
@@ -26,6 +28,8 @@ protected:
 
 	virtual void BeginPlay() override;
 
+
+	
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<class USkeletalMeshComponent> Weapon;
 

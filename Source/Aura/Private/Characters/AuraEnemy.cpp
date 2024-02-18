@@ -9,6 +9,8 @@
 
 AAuraEnemy::AAuraEnemy()
 {
+	PrimaryActorTick.bCanEverTick = true;
+	
 	if(GetMesh() != nullptr)
 	{
 		GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
@@ -39,6 +41,38 @@ void AAuraEnemy::UnHighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
+}
+
+void AAuraEnemy::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	AAuraCharacter* Character = Cast<AAuraCharacter>(this);
+	FColor MessageColor = FColor::Red;
+
+	if(Character != nullptr)
+	{
+		MessageColor = FColor::Blue;
+	}
+	
+
+	// if(GEngine != nullptr)
+	// {
+	
+	GEngine->AddOnScreenDebugMessage(-1, 0.f, FColor::Red, GetName());
+	//}
+	
+	if(AbilitySystemComponent != nullptr)
+	{
+		if(const UAuraAttributeSet* AuraAttributeSet = Cast<UAuraAttributeSet>(AbilitySystemComponent->GetAttributeSet(UAuraAttributeSet::StaticClass())))
+		{
+			if(GEngine != nullptr)
+			{
+				FString Message = GetName() + " " + FString::SanitizeFloat(AuraAttributeSet->GetHealth());
+				GEngine->AddOnScreenDebugMessage(-1, 0.f, FColor::Red, Message);
+			}
+		}
+	}
 }
 
 void AAuraEnemy::BeginPlay()

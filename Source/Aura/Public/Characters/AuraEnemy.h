@@ -24,7 +24,7 @@ public:
 	virtual void UnHighlightActor() override;
 	/** End Enemy interface */
 
-
+    virtual void Tick(float DeltaSeconds) override;
 	
 protected:
 	
